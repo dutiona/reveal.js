@@ -1,13 +1,9 @@
-#include <iostream>
-
-using namesapce std;
-
 // sample(Hello-World)
 #include <iostream>
 #include <type_traits>
 
-/////////// Default value
-
+/////////// Default template value
+// Use-case : emulate concepts
 // With default value (recommended)
 
 template<class T, std::enable_if_t<std::is_integral<T>::value, int> = 0>
@@ -66,8 +62,8 @@ void S<false, T>::k() {
 
 
 
-/////////// Typename
-
+/////////// template Typename
+// Use-case emulate concepts
 template<class T, typename = std::enable_if_t<std::is_integral<T>::value, T>>
 void f() {
     std::cout << "typename = std::is_integral<T>" << std::endl;
@@ -111,6 +107,10 @@ struct Z<false, T, U> {
     
 };
 
+//////////////////////
+// Enable_if as return type
+// use-case : make overload differing by return type
+// works with variadic and specialisations
 template<bool>
 struct static_if {
     template<class Ret, class If, class Else, class ... Args>
@@ -120,15 +120,13 @@ struct static_if {
 template<>
 struct static_if<true> {
     template<class Ret, class If, class Else, class ... Args>
-    static decltype(auto) call(If&& if_f, Else&&, Args&& ... args)
-        -> std::enable_if_t<!std::is_same<Ret, void>::value, Ret>
+    static std::enable_if_t<!std::is_same<Ret, void>::value, Ret> call(If&& if_f, Else&&, Args&& ... args)
     {
         return if_f(std::forward<Args>(args)...);
     }
 
     template<class Ret, class If, class Else, class ... Args>
-    static decltype(auto) call(If&& if_f, Else&&, Args&& ... args)
-        -> std::enable_if_t<std::is_same<Ret, void>::value>
+    static std::enable_if_t<std::is_same<Ret, void>::value> call(If&& if_f, Else&&, Args&& ... args)
     {
         if_f(std::forward<Args>(args)...);
     }
@@ -137,25 +135,41 @@ struct static_if<true> {
 template<>
 struct static_if<false> {
     template<class Ret, class If, class Else, class ... Args>
-    static decltype(auto) call(If&&, Else&& else_f, Args&& ... args)
-        -> std::enable_if_t<!std::is_same<Ret, void>::value, Ret>
+    static std::enable_if_t<!std::is_same<Ret, void>::value, Ret> call(If&&, Else&& else_f, Args&& ... args)
     {
         return else_f(std::forward<Args>(args)...);
     }
 
     template<class Ret, class If, class Else, class ... Args>
-    static decltype(auto) call(If&&, Else&& else_f, Args&& ... args)
-        -> std::enable_if_t<std::is_same<Ret, void>::value>
+    static std::enable_if_t<std::is_same<Ret, void>::value> call(If&&, Else&& else_f, Args&& ... args)
     {
         else_f(std::forward<Args>(args)...);
     }
 };
+
+// LIMITATION : ctors and conversion operator function
+
+
+////////////////////////////////////
+// Enable_if as a function parameter
+
+
+template<class T>
+constexpr bool can_be_decay = !std::is_same<std::decay_t<T>, T>::value;
+
+
+
+static_assert(can_be_decay<char(&)[1]>, "");
+static_assert(can_be_decay<char*>, "");
+
 
 
 struct A {};
 
 int main()
 {
+    std::enable_if_t<std::is_integral<int>::value, int> a;
+    
     f<int>();
     //f<A>();
     
