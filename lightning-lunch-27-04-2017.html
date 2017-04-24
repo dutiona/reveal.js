@@ -52,20 +52,9 @@
 					<h2>SFINAE (définition)</h2>
 					<h4>Substitution Failure Is Not An Error</h4>
 					<p style="text-align: left">
-						Lorsque la substitution d'un type déduis d'un paramètre template échoue cela n'est pas considéré comme une erreur. A la place, la spécialisation est juste écarté de la liste des overloads disponibles pour l'ADL (Argument dependent lookup).
+						Lorsque la substitution d'un type déduit d'un paramètre template échoue cela n'est pas considéré comme une erreur. A la place, la spécialisation est juste écartée de la liste des overloads disponibles pour l'ADL (Argument dependent lookup).
 					</p>
 				</section>
-                
-                <section>
-					<h2>SFINAE (exemple)</h2>
-					<pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/sfinae_example.cpp#SFINAE-functions'></code></pre>
-                    <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/sfinae_example.cpp#SFINAE-main'></code></pre>
-				</section>
-                
-                <section>
-                    <h2>SFINAE (compilation error)</h2>
-                    <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/sfinae_example_compilation_error.log'></code></pre>
-                </section>
                 
                 <section>
                     <h2>Prototype &amp; implem std::enable_if</h2>
@@ -95,27 +84,27 @@
                     <h3>(1) Valeur template par défaut</h3>
                     <h6>"Emule" les concepts</h6>
                     <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_template_param.cpp#enable-if-usage-default-template-value1'></code></pre>
-                    <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_template_param.cpp#enable-if-usage-default-template-value2'></code></pre>
+                    <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_template_param.cpp#enable-if-usage-default-template-value2-bug'></code></pre>
                     <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_template_param.cpp#enable-if-usage-default-template-macro'></code></pre>
                 </section>
                 
                 <section>
                     <h3>(1) Valeur template par défaut</h3>
                     <h6>Attention aux conditions</h6>
-                    <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_template_param.cpp#enable-if-usage-default-template-value3-bug'></code></pre>
+                    <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_template_param.cpp#enable-if-usage-default-template-value3'></code></pre>
                     <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_template_param.cpp#enable-if-usage-default-template-value-main-bug'></code></pre>
                 </section>
                 
                 <section>
                     <h3>(1) Valeur template par défaut</h3>
-                    <h5>Requierts des conditions d'exclusion mutuelles scrictes</h5>
-                    <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_template_param.cpp#enable-if-usage-default-template-value3'></code></pre>
+                    <h5>Requiert des conditions d'exclusion mutuelles scrictes</h5>
+                    <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_template_param.cpp#enable-if-usage-default-template-value2'></code></pre>
                     <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_template_param.cpp#enable-if-usage-default-template-value-main'></code></pre>
                 </section>
                 
                 <section>
                     <h2>Utilisations</h2>
-                    <h5>5 emplacement possibles</h5>
+                    <h5>5 emplacements possibles</h5>
                     <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_all.cpp#enable-if-usage-all'></code></pre>
                 </section>
                 
@@ -166,18 +155,18 @@
                 <section>
                     <h3>(3) Type de retour</h3>
                     <h6>Solution : enable_if (implem true)</h6>
-                    <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_static_if.cpp#static-if-true-part'></code></pre>
+                    <pre style="font-size: 0.4em"><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_static_if.cpp#static-if-true-part'></code></pre>
                 </section>
                 
                 <section>
                     <h3>(3) Type de retour</h3>
                     <h6>Solution : enable_if (implem false)</h6>
-                    <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_static_if.cpp#static-if-false-part'></code></pre>
+                    <pre style="font-size: 0.4em"><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_static_if.cpp#static-if-false-part'></code></pre>
                 </section>
                 
                 <section>
                     <h2>Utilisations</h2>
-                    <h5>5 emplacement possibles</h5>
+                    <h5>5 emplacements possibles</h5>
                     <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_all.cpp#enable-if-usage-all'></code></pre>
                 </section>
                 
@@ -218,7 +207,6 @@
                 
                 <section>
                     <h3>(4) Paramètre de fonction</h3>
-                    <h6>Permet de s'en sortir lorsque le reste n'est pas applicable</h6>
                     <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_func_param.cpp#enable-if-usage-function-parameter-type1'></code></pre>
                     <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_func_param.cpp#enable-if-usage-function-parameter-type2'></code></pre>
                     <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_func_param.cpp#enable-if-usage-function-parameter-main1'></code></pre>
@@ -242,7 +230,7 @@
                 
                 <section>
                     <h2>Utilisations</h2>
-                    <h5>5 emplacement possibles</h5>
+                    <h5>5 emplacements possibles</h5>
                     <pre><code class='sample' sample='http://127.0.0.1:8887/lightning-lunch-27-04-2017/enable_if_usage_all.cpp#enable-if-usage-all'></code></pre>
                 </section>
                 
@@ -261,7 +249,7 @@
                             <td><span style="color: green">OK</span></td>
                             <td><span style="color: green">OK</span></td>
                             <td><span style="color: green">OK</span></td>
-                            <td><span style="color: yellow">Partiel</span></td>
+                            <td><span style="color: green">OK*</span></td>
                             <td><span style="color: red">KO</span></td>
                         </tr>
                         <tr>
@@ -289,8 +277,18 @@
                             <td><span style="color: green">OK</span></td>
                         </tr>
                     </table>
+					<small>* : le paramètre porteur du enable_if est obligatoirement non variadic</small>
                 </span></section>
                 
+				<section>
+                    <h2>Ressources</h2>
+                    <ul style="font-size: 0.8em">
+						<li><a href="http://en.cppreference.com/w/cpp/language/sfinae">cppreference : SFINAE</a></li>
+						<li><a href="http://en.cppreference.com/w/cpp/types/enable_if">cppreference : std::enable_if</a></li>
+						<li><a href="https://youtu.be/JhgWFYfdIho">CppCon 2016: Stephan T. Lavavej “tuple＜＞: What's New and How it Works"</a></li>
+					</ul>
+                </section>
+				
 			</div>
 
 		</div>

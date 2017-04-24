@@ -5,14 +5,18 @@ using namespace std;
 
 // sample(enable-if-usage-function-parameter-type1)
 template<typename T>
-void f(T a, enable_if_t<is_integral<T>::value, T> b) {
+void f(T a,
+       enable_if_t<is_integral<T>::value, T> b)
+{
   cout << "integral type !" << endl;
 }
 // end-sample
 
 // sample(enable-if-usage-function-parameter-type2)
 template<typename T>
-void f(T a, enable_if_t<!is_integral<T>::value, T> b) {
+void f(T a,
+       enable_if_t<!is_integral<T>::value, T> b)
+{
   cout << "not integral type !" << endl;
 }
 // end-sample
@@ -33,14 +37,18 @@ void f(enable_if_t<!is_integral<T>::value, T> a) {
 
 // sample(enable-if-usage-function-parameter-type5)
 template<typename T>
-void f(T a, enable_if_t<is_integral<T>::value, void**> = nullptr) {
+void f(T a,
+       enable_if_t<is_integral<T>::value, void**> = nullptr)
+{
   cout << "integral type !" << endl;
 }
 // end-sample
 
 // sample(enable-if-usage-function-parameter-type6)
 template<typename T>
-void f(T a, enable_if_t<!is_integral<T>::value, void**> = nullptr){
+void f(T a,
+       enable_if_t<!is_integral<T>::value, void**> = nullptr)
+{
   cout << "not integral type !" << endl;
 }
 // end-sample
