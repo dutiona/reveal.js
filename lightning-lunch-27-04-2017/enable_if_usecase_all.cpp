@@ -153,22 +153,78 @@ struct static_if<false> {
 ////////////////////////////////////
 // Enable_if as a function parameter
 
+// use case : relaxed tag dispatching
+// works with specialisation
 
+template<class T>
+void add(T a, std::enable_if_t<std::is_same<T, int>::value, int> b) {
+    std::cout << "add<int>" << std::endl;
+}
+
+template<class T>
+void add(T a, double b, std::enable_if_t<std::is_same<T, double>::value, void**> = nullptr) {
+    std::cout << "add<double>" << std::endl;
+}
+
+// Specialisation
+template<bool Cond>
+struct W {
+  template<class T>
+  static void k(T a);  
+};
+
+template<>
+struct W<true> {
+    
+    template<class T>
+    static void k(T a, std::enable_if_t<std::is_same<T, double>::value, void**> = nullptr) {
+        std::cout << "W<true>::k(double)" << std::endl;
+    }
+    
+    template<class T>
+    static void k(T a, std::enable_if_t<std::is_same<T, float>::value, void**> = nullptr) {
+        std::cout << "W<true>::k(float)" << std::endl;
+    }
+    
+};
+
+template<>
+struct W<false> {
+    
+    template<class T>
+    static void w(T a, std::enable_if_t<std::is_same<T, int>::value, void**> = nullptr) {
+        std::cout << "W<false>::k(int)" << std::endl;
+    }
+    
+};
+
+// LIMITATION : don't handle variadic
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 template<class T>
 constexpr bool can_be_decay = !std::is_same<std::decay_t<T>, T>::value;
 
-
-
 static_assert(can_be_decay<char(&)[1]>, "");
-static_assert(can_be_decay<char*>, "");
-
-
-
+static_assert(!can_be_decay<char*>, "");
+*/
 struct A {};
 
 int main()
 {
-    std::enable_if_t<std::is_integral<int>::value, int> a;
+    //std::enable_if_t<std::is_integral<int>::value, int> a;
     
     f<int>();
     //f<A>();
@@ -186,6 +242,14 @@ int main()
     
     Z<true, char>::k();
     Z<false, char>::k();
+    
+    add(0, 0);
+    add(0., 0.);
+    //add(0.f, 0.f);
+    
+    W<true>::k(0.);
+    W<true>::k(0.f);
+    W<false>::w(0);
     
     return 0;
 }
