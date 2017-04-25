@@ -198,14 +198,38 @@ struct W<false> {
     
 };
 
+template<bool Cond>
+struct Z {
+  template<class T>
+  static void k(T a);  
+};
+
+template<>
+struct Z<true> {
+    
+    template<class T>
+    static void k(T a, std::enable_if_t<std::is_same<T, double>::value, T> b) {
+        std::cout << "W<true>::k(double)" << std::endl;
+    }
+    
+    template<class T>
+    static void k(T a, std::enable_if_t<std::is_same<T, float>::value, T> b) {
+        std::cout << "W<true>::k(float)" << std::endl;
+    }
+    
+};
+
+template<>
+struct Z<false> {
+    
+    template<class T>
+    static void w(T a, std::enable_if_t<std::is_same<T, int>::value, T> b) {
+        std::cout << "W<false>::k(int)" << std::endl;
+    }
+    
+};
+
 // LIMITATION : don't handle variadic
-
-
-
-
-
-
-
 
 
 
@@ -250,6 +274,9 @@ int main()
     W<true>::k(0.);
     W<true>::k(0.f);
     W<false>::w(0);
+    Z<true>::k(0., 1.);
+    Z<true>::k(0.f, 1.f);
+    Z<false>::w(0, 1);
     
     return 0;
 }
